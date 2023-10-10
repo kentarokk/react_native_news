@@ -14,16 +14,13 @@ export const ListItem = (props) => {
   return (
     <View style={styles.itemContainer}>
       <View style={styles.leftContainer}>
-        <Image
-          style={{ width: 100, height: 100 }}
-          source={{ uri: 'https://picsum.photos/id/10/300/300/' }}
-        ></Image>
+        <Image style={{ width: 100, height: 100 }} source={{ uri: props.imageUrl }}></Image>
       </View>
       <View style={styles.rightContainer}>
         <Text numberOfLines={3} style={styles.text}>
-          Lorem
+          {props.title}
         </Text>
-        <Text style={styles.subText}>React News</Text>
+        <Text style={styles.subText}>{props.author}</Text>
       </View>
     </View>
   );

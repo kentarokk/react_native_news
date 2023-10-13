@@ -1,13 +1,28 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet, Text } from 'react-native';
 import { WebView } from 'react-native-webview';
+import { ClipButton } from '../components/clipButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { addClip, deleteClip } from '../store/userSlice';
 
 export const ArticleScreen = ({ route }) => {
-  console.log(route.params);
   const { article } = route.params;
+  const dispatch = useDispatch();
+  const clips = useSelector((state) => state.user.clips);
+
+  const isClipped = clips.some((clip) => clip.url === article.url);
+
+  onPressClip = () => {
+    if (isClipped) {
+      dispatch(deleteClip(article));
+    } else {
+      dispatch(addClip(article));
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
+      <ClipButton onPress={onPressClip} enabled={isClipped} />
       <WebView source={{ uri: article.url }} />
     </SafeAreaView>
   );
